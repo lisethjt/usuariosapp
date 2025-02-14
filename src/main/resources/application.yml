@@ -1,0 +1,28 @@
+server:
+  port: 8081   
+  
+spring:
+  application:
+     name: microservicio-usuariosapp
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_hospital
+    username: root
+    password: tandito    
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+# Config de el servidor  
+#eureka: 
+#  client:
+#    serviceUrl:
+#      # Direccion a la que se conecta el microservicio con eureka
+#      defaultZone: http://localhost:8761/eureka   
+#      register-with-eureka: true  
+
+
+  
