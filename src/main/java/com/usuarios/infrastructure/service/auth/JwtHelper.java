@@ -26,9 +26,12 @@ public class JwtHelper {
 	}
 
 	public static String generateToken(String email) {
-		String token = Jwts.builder().setSubject(email).setIssuedAt(new Date())
+		String token = Jwts.builder()
+				.setSubject(email)
+				.setIssuedAt(new Date())
 				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-				.signWith(SignatureAlgorithm.HS384, SECRET_KEY).compact();
+				.signWith(SignatureAlgorithm.HS384, SECRET_KEY)
+				.compact();
 		return TOKEN_PREFIX + token;
 	}
 
@@ -71,6 +74,14 @@ public class JwtHelper {
 
 	public String getEmail(Claims claims) {
 		return claims.getSubject();
+	}
+	
+	public static Claims decodeToken(String token) {
+		Claims claims = Jwts.parser()
+				       .setSigningKey(SECRET_KEY)
+				       .parseClaimsJws(token)
+				       .getBody();
+		return claims;
 	}
 
 //	private List<String> getRoles(Claims claims) {
