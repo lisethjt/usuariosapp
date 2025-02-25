@@ -3,18 +3,17 @@ package com.usuarios.infrastructure.payload;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+@NoArgsConstructor
+@Getter
+@Setter
+public class ImageResponse {
 	
-	private Long id;
-	private String name;	
-	private String email;
-	private String image;
-	private String role;
-	private Boolean google;
+	private MessageResponse message;
 }

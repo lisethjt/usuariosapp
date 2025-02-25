@@ -19,7 +19,8 @@ public final class UserDboMapper {
 	}
 	
 	public static User toUser(UserEntity user) {
-		return User.builder()				
+		return User.builder()
+				.id(user.getId())
 				.name(user.getName())
 				.password(user.getPassword())
 				.email(user.getEmail())
@@ -30,7 +31,8 @@ public final class UserDboMapper {
 	}
 	
 	public static UserDto toUserDto(UserEntity user) {
-		return UserDto.builder()				
+		return UserDto.builder()		
+				.id(user.getId())
 				.name(user.getName())				
 				.email(user.getEmail())
 				.image(user.getImage())

@@ -48,19 +48,50 @@ public class UserRepositoryPortImpl implements UserRepositoryPort {
 	@Override
 	public User update(User user, Long id) {
 		Optional<UserEntity> userList = this.userRespository.findById(id);
-		if(userList.isPresent()) {
+		if(!userList.isPresent()) {
 			userList.orElseThrow(
-					() -> new UserException(HttpStatus.BAD_REQUEST, UserConstant.USER_NOT_FOUND_MESSAGE_ERROR ));
+					() -> new UserException(HttpStatus.NOT_FOUND, UserConstant.USER_NOT_FOUND_MESSAGE_ERROR ));
+			return null;
 		}
 		
-		UserEntity userEntity = userList.get();
-		userEntity.setImage(user.getImage());
-		userEntity.setRole(user.getRole());
+		if(userList.get().getGoogle()) {
+			userList.orElseThrow(
+					() -> new UserException(HttpStatus.BAD_REQUEST, UserConstant.USER_FOUND_MESSAGE_ERROR ));
+				return null;
+		}	
+		
+		if(!user.getEmail().equals(userList.get().getEmail())) {
+			Optional<UserEntity> userListMail = this.userRespository.findByEmail(user.getEmail());
+			if(userListMail.isPresent()) {
+				userListMail.orElseThrow(
+					() -> new UserException(HttpStatus.BAD_REQUEST, UserConstant.USER_FOUND_MESSAGE_ERROR ));
+				return null;
+			}
+		}	
+			
+			
+		UserEntity userEntity = userList.get();		
+		userEntity.setName(user.getName());
+		userEntity.setEmail(user.getEmail());
 		return UserDboMapper.toUser(this.userRespository.save(userEntity));
 	}
 
 	@Override
 	public void deleteUser(Long id) {
 		this.userRespository.deleteById(id);
+	}
+
+	@Override
+	public User updateById(Long id, String image) {
+		Optional<UserEntity> userList = this.userRespository.findById(id);
+		if(!userList.isPresent()) {
+			userList.orElseThrow(
+					() -> new UserException(HttpStatus.NOT_FOUND, UserConstant.USER_NOT_FOUND_MESSAGE_ERROR ));
+			return null;
+		}
+		
+		UserEntity userEntity = userList.get();	
+		userEntity.setImage(image);
+		return UserDboMapper.toUser(this.userRespository.save(userEntity));
 	}
 }

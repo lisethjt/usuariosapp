@@ -18,7 +18,8 @@ public final class UserDtoMapper {
 	}
 	
 	public static UserDto toUserDto(User user) {
-		return UserDto.builder()				
+		return UserDto.builder()		
+				.id(user.getId())
 				.name(user.getName())				
 				.email(user.getEmail())
 				.image(user.getImage())

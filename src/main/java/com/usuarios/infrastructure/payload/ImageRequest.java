@@ -9,12 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
-	
-	private Long id;
-	private String name;	
-	private String email;
+public class ImageRequest {
+
 	private String image;
-	private String role;
-	private Boolean google;
 }

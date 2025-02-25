@@ -13,4 +13,6 @@ public interface AdminUserService {
 	User update(User user, Long id);
 
 	void deleteUser(Long id);
+	
+	User updateImage(String image, Long id);
 }

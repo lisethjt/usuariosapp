@@ -40,4 +40,9 @@ public class UserServiceImpl implements AdminUserService {
 	public void deleteUser(Long id) {
 		this.userRepositoryPort.deleteUser(id);
 	}
+
+	@Override
+	public User updateImage(String image, Long id) {
+		return  this.userRepositoryPort.updateById(id, image);		
+	}
 }

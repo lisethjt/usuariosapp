@@ -13,4 +13,6 @@ public interface UserRepositoryPort {
 	User update(User user, Long id);	
 	
 	void deleteUser(Long id);
+	
+	User updateById(Long id, String image);
 }

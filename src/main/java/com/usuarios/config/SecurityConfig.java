@@ -57,10 +57,11 @@ public class SecurityConfig {
 //          Set permissions on endpoints
 				.authorizeHttpRequests(auth -> auth
 //              our public endpoints
-						.requestMatchers(HttpMethod.POST, "/users/add").permitAll()
+						.requestMatchers(HttpMethod.POST, "/users/**").permitAll()
+						.requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
 						.requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
-						.requestMatchers(HttpMethod.GET, "/api/auth/**").authenticated()
-						.requestMatchers(HttpMethod.GET, "/users/all").authenticated()
+						.requestMatchers(HttpMethod.GET, "/api/auth/**").permitAll()
+						.requestMatchers(HttpMethod.GET, "/users/**").permitAll()
 //              our private endpoints
 						.anyRequest().authenticated())
 				.addFilterBefore(jwtAuthorizationFilter,UsernamePasswordAuthenticationFilter.class)

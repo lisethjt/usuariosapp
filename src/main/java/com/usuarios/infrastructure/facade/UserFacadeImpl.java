@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.usuarios.application.usercase.AdminUserService;
 import com.usuarios.domain.User;
 import com.usuarios.infrastructure.mapper.UserDtoMapper;
+import com.usuarios.infrastructure.payload.ImageRequest;
+import com.usuarios.infrastructure.payload.ImageResponse;
 import com.usuarios.infrastructure.payload.MessageResponse;
 import com.usuarios.infrastructure.payload.UserListResponse;
 import com.usuarios.infrastructure.payload.UserRequest;
@@ -63,7 +65,16 @@ public class UserFacadeImpl implements UserFacade {
 		MessageResponse messageResponse = new MessageResponse();
 		messageResponse.setCode("200");
 		messageResponse.setMessage("Exito");
-		userResponse.setUser(UserDtoMapper.toUserDto(this.userService.update(UserDtoMapper.toUser(user), id)));
+		
+		User userObj= this.userService.update(UserDtoMapper.toUser(user), id);
+		if(userObj == null) {
+			messageResponse.setCode("400");
+			messageResponse.setMessage("El usuario no pudo ser actualizado");
+			userResponse.setMessage(messageResponse);
+			return userResponse;
+		}
+		
+		userResponse.setUser(UserDtoMapper.toUserDto(userObj));
 		userResponse.setMessage(messageResponse);
 		return userResponse;
 	}
@@ -73,4 +84,23 @@ public class UserFacadeImpl implements UserFacade {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public ImageResponse updateImage(ImageRequest image, Long id) {
+		ImageResponse userResponse = new ImageResponse();
+		MessageResponse messageResponse = new MessageResponse();
+		messageResponse.setCode("200");
+		messageResponse.setMessage("Exito");
+		
+		User userObj= this.userService.updateImage(image.getImage(), id);
+		
+		if(userObj == null) {
+			messageResponse.setCode("400");
+			messageResponse.setMessage("El usuario no pudo ser actualizado");
+			userResponse.setMessage(messageResponse);
+			return userResponse;
+		}
+		
+		userResponse.setMessage(messageResponse);
+		return userResponse;
+	}
 }
