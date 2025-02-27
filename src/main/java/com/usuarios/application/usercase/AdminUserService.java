@@ -15,4 +15,8 @@ public interface AdminUserService {
 	void deleteUser(Long id);
 	
 	User updateImage(String image, Long id);
+	
+	List<User> findAll(int page, int size);
+	
+	List<User> findByName(String name);
 }

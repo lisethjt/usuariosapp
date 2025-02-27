@@ -45,4 +45,14 @@ public class UserServiceImpl implements AdminUserService {
 	public User updateImage(String image, Long id) {
 		return  this.userRepositoryPort.updateById(id, image);		
 	}
+
+	@Override
+	public List<User> findAll(int page, int size) {
+		return this.userRepositoryPort.findAll(page, size);
+	}
+
+	@Override
+	public List<User> findByName(String name) {		
+		return this.userRepositoryPort.findByName(name);
+	}
 }

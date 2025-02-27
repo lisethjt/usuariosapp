@@ -56,4 +56,17 @@ public class UserController {
 			@PathVariable("userId") Long userId, @RequestHeader("token") String token) {
 		return ResponseEntity.ok().body(this.userFacade.updateImage(userRequest, userId));
 	}
+	
+	@GetMapping("/all/{page}/{size}")
+	public ResponseEntity<UserListResponse> allUsers(@PathVariable("page") int page, 
+			@PathVariable("size") int size,
+			 @RequestHeader("token") String token) {
+		return ResponseEntity.ok().body(this.userFacade.findAll(page, size));
+	}
+	
+	@GetMapping("/getByName/{name}")
+	public ResponseEntity<UserListResponse> usersByName(@PathVariable("name") String name,
+			 @RequestHeader("token") String token) {
+		return ResponseEntity.ok().body(this.userFacade.findByName(name));
+	}
 }

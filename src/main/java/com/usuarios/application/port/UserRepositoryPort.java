@@ -15,4 +15,8 @@ public interface UserRepositoryPort {
 	void deleteUser(Long id);
 	
 	User updateById(Long id, String image);
+	
+	List<User> findAll(int page, int size);
+	
+	List<User> findByName(String name);
 }

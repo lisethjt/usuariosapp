@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
@@ -93,5 +95,21 @@ public class UserRepositoryPortImpl implements UserRepositoryPort {
 		UserEntity userEntity = userList.get();	
 		userEntity.setImage(image);
 		return UserDboMapper.toUser(this.userRespository.save(userEntity));
+	}
+
+	@Override
+	public List<User> findAll(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+        return this.userRespository.findAll(pageable)
+        		.stream()
+				.map(UserDboMapper::toUser)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<User> findByName(String name) {		
+		 return this.userRespository.findByNameLike("%" + name + "%").stream()
+					.map(UserDboMapper::toUser)
+					.collect(Collectors.toList());
 	}
 }

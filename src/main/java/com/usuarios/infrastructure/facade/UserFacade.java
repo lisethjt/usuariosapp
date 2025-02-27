@@ -17,4 +17,8 @@ public interface UserFacade {
 	void deleteUser(Long id);
 	
 	ImageResponse updateImage(ImageRequest image, Long id);
+	
+	UserListResponse findAll(int page, int size);
+
+	UserListResponse findByName(String name);
 }

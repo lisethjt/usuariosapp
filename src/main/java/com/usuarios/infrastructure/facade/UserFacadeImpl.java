@@ -103,4 +103,36 @@ public class UserFacadeImpl implements UserFacade {
 		userResponse.setMessage(messageResponse);
 		return userResponse;
 	}
+
+	@Override
+	public UserListResponse findAll(int page, int size) {
+		UserListResponse userResponse = new UserListResponse();
+		MessageResponse messageResponse = new MessageResponse();
+		messageResponse.setCode("200");
+		messageResponse.setMessage("Exito");
+		userResponse.setUsers(this.userService.findAll(page, size)
+                					.stream()
+                					.map(UserDtoMapper::toUserDto)
+                					.collect(Collectors.toList()));
+		userResponse.setMessage(messageResponse);	
+		
+		//
+		userResponse.setPages(Math.round(userService.findAll()
+				.stream().count()/size));		
+		return userResponse;
+	}
+
+	@Override
+	public UserListResponse findByName(String name) {
+		UserListResponse userResponse = new UserListResponse();
+		MessageResponse messageResponse = new MessageResponse();
+		messageResponse.setCode("200");
+		messageResponse.setMessage("Exito");
+		userResponse.setUsers(this.userService.findByName(name)
+                					.stream()
+                					.map(UserDtoMapper::toUserDto)
+                					.collect(Collectors.toList()));
+		userResponse.setMessage(messageResponse);		 
+		return userResponse;
+	}
 }
