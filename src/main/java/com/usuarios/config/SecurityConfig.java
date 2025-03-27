@@ -59,9 +59,10 @@ public class SecurityConfig {
 //              our public endpoints
 						.requestMatchers(HttpMethod.POST, "/users/**").permitAll()
 						.requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
-						.requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
-						.requestMatchers(HttpMethod.GET, "/api/auth/**").permitAll()
 						.requestMatchers(HttpMethod.GET, "/users/**").permitAll()
+						.requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
+						.requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/auth/**").permitAll()						
 //              our private endpoints
 						.anyRequest().authenticated())
 				.addFilterBefore(jwtAuthorizationFilter,UsernamePasswordAuthenticationFilter.class)

@@ -14,7 +14,7 @@ public interface UserFacade {
 
 	UserResponse update(UserRequest user, Long id);
 
-	void deleteUser(Long id);
+	UserResponse deleteUser(Long id);
 	
 	ImageResponse updateImage(ImageRequest image, Long id);
 	

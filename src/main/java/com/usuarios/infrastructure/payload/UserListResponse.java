@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 public class UserListResponse {
 
-	private int pages;
+	private double pages;
 	private List<UserDto> users;
 	private MessageResponse message;
 }

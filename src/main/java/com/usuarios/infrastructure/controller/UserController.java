@@ -47,8 +47,9 @@ public class UserController {
 	}
 
 	@DeleteMapping("/delete/{userId}")
-	public ResponseEntity<UserResponse> deleteUser(@PathVariable("userId") Long userId) {
-		return null;
+	public ResponseEntity<UserResponse> deleteUser(@PathVariable("userId") Long userId,
+			@RequestHeader("token") String token) {
+		return ResponseEntity.ok().body(this.userFacade.deleteUser(userId));
 	}
 	
 	@PutMapping("/uploadImage/{userId}")

@@ -75,11 +75,18 @@ public class UserRepositoryPortImpl implements UserRepositoryPort {
 		UserEntity userEntity = userList.get();		
 		userEntity.setName(user.getName());
 		userEntity.setEmail(user.getEmail());
+		userEntity.setRole(user.getRole());
 		return UserDboMapper.toUser(this.userRespository.save(userEntity));
 	}
 
 	@Override
 	public void deleteUser(Long id) {
+		Optional<UserEntity> userList = this.userRespository.findById(id);
+		if(!userList.isPresent()) {
+			userList.orElseThrow(
+					() -> new UserException(HttpStatus.NOT_FOUND, UserConstant.USER_NOT_FOUND_MESSAGE_ERROR ));
+			return ;
+		}
 		this.userRespository.deleteById(id);
 	}
 

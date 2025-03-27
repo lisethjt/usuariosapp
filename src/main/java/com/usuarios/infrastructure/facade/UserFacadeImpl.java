@@ -80,8 +80,15 @@ public class UserFacadeImpl implements UserFacade {
 	}
 
 	@Override
-	public void deleteUser(Long id) {
-		// TODO Auto-generated method stub
+	public UserResponse deleteUser(Long id) {
+		UserResponse userResponse = new UserResponse();
+		MessageResponse messageResponse = new MessageResponse();
+		messageResponse.setCode("200");
+		messageResponse.setMessage("Exito");
+		
+		this.userService.deleteUser(id);
+		userResponse.setMessage(messageResponse);
+		return userResponse;
 	}
 
 	@Override
@@ -116,9 +123,8 @@ public class UserFacadeImpl implements UserFacade {
                 					.collect(Collectors.toList()));
 		userResponse.setMessage(messageResponse);	
 		
-		//
-		userResponse.setPages(Math.round(userService.findAll()
-				.stream().count()/size));		
+		userResponse.setPages(Math.ceil((double)(userService.findAll()
+				.stream().count())/size));		
 		return userResponse;
 	}
 
